@@ -1,0 +1,59 @@
+name: test
+
+on:
+  push:
+    branches:
+      - "main"
+      - "master"
+      - "dev"
+    paths:
+      - "**.py"
+      - ".github/workflows/*test*.yml"
+      - "pyproject.toml"
+      - "poetry.lock"
+      - "requirements/requirements*.txt"
+  pull_request:
+    paths:
+      - "**.py"
+      - ".github/workflows/*test*.yml"
+      - "pyproject.toml"
+      - "poetry.lock"
+      - "requirements/requirements*.txt"
+
+jobs:
+  test:
+    name: "test Python ${{ matrix.python }} on ${{ matrix.os }}"
+    runs-on: "${{ matrix.os }}"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python: ["3.10", "3.11", "3.12"]
+        include:
+          - os: "macos-latest"
+            python-version: "3.10"
+          # - os: "windows-latest"
+          #   python-version: "3.10"
+    defaults:
+      run:
+        shell: "bash -elo pipefail {0}"
+
+    steps:
+      - uses: "actions/checkout@main"
+      - uses: "actions/setup-python@main"
+        with:
+          python-version: "${{ matrix.python }}"
+      - uses: "actions/cache@main"
+        id: "cache"
+        with:
+          path: "${{ env.pythonLocation }}"
+          key: "test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements/*') }}"
+      - run: "python3 --version"
+      - run: "python3 -mpip --version"
+      - run: "python3 -mpip install -r requirements/requirements.txt -r requirements/requirements-dev.txt"
+      - run: "python3 -mpip install ./"
+      - run: "python3 -mpip cache info"
+      - run: "python3 -mpip freeze"
+      - run: "python3 -mpytest --version"
+      - run: "mypy multifutures"
+      - run: "make cov"
