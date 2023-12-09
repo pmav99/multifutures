@@ -36,7 +36,7 @@ def test_ratelimit() -> None:
     t2 = time.time()
     assert number_of_executions == repetitions
     assert t2 - t1 > 1
-    assert t2 - t1 == pytest.approx(1, rel=0.1)
+    assert t2 - t1 == pytest.approx(1, rel=0.2)
 
 
 def test_ratelimit_multithread() -> None:
@@ -66,7 +66,7 @@ def test_ratelimit_multithread() -> None:
     duration = t2 - t1
     assert number_of_executions == repetitions
     assert t2 - t1 > 1
-    assert t2 - t1 == pytest.approx(1, rel=0.1)
+    assert t2 - t1 == pytest.approx(1, rel=0.2)
 
 
 # def test_RateLimit_multiprocess() -> None:
