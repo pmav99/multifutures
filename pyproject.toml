@@ -6,7 +6,7 @@ authors = ["Panos Mavrogiorgos <pmav99@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.9, <4.0"
 limits = "*"
 pydantic = ">2"
 tqdm = "*"
@@ -76,9 +76,9 @@ select = [
   "FA",  # flake8-future-annotations
   "FBT",  # flake8-boolean-trap
   "F",  # pyflakes
-  "ICN",  # flake8-import-conventions 
+  "ICN",  # flake8-import-conventions
   # "I",  # isort
-  "ISC",  # flake8-implicit-str-concat 
+  "ISC",  # flake8-implicit-str-concat
   "N",  # pep8-naming
   "PL",  # Pylint
   "Q",  # flake8-quotes
@@ -88,7 +88,7 @@ select = [
   "T",  # pyupgrade
   "T10",  # flake8-debugger
   "UP",  # pyupgrade
-  "W",  # Warning 
+  "W",  # Warning
   "YTT",  # flake8-2020
 ]
 ignore = [
