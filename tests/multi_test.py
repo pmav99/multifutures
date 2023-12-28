@@ -1,119 +1,162 @@
 from __future__ import annotations
 
+import concurrent.futures
 import multiprocessing
-import threading
-import time
+import sys
+from unittest.mock import patch
 
+import exceptiongroup
+import loky
 import pytest
+import tqdm.auto
 
 from multifutures import multi
 
-
-# Some help functions to test multithreading
-def get_threadname(**kwargs) -> tuple[str, str]:
-    del kwargs
-    # We add a tiny amount of wait_time to make sure that all the threads are getting used.
-    time.sleep(0.001)
-    return threading.current_thread().name
+CONCURRENCY_FUNCS = pytest.mark.parametrize("concurrency_func", [multi.multithread, multi.multiprocess])
+MP_CONTEXTS = ["fork", "spawn", "forkserver", "loky", "loky_init_main"]
 
 
-def get_processname(**kwargs) -> tuple[str, str]:
-    del kwargs
-    # We add a tiny amount of wait_time to make sure that all the processes are getting used.
-    time.sleep(0.05)
-    return multiprocessing.current_process().name
-
-
-def raise_zero_division_error(**kwargs) -> None:
-    del kwargs
+def raise_zero_division_error(**kwargs) -> None:  # noqa: ARG001: Unused function argument
     raise ZeroDivisionError()
 
 
-def return_one(number) -> float:
-    del number
+def return_one(**kwargs) -> float:  # noqa: ARG001: Unused function argument
     return 1
 
 
-# The actual tests
-def test_multiprocess_raises_value_error_if_n_workers_higher_than_available_threads() -> None:
-    with pytest.raises(ValueError) as exc:
-        multi.multiprocess(func=lambda x: x, func_kwargs=[{"x": 1}] * 2, n_workers=1024)
-    assert f"The maximum available processes are {multi.MAX_AVAILABLE_PROCESSES}, not: 1024" == str(exc.value)
-
-
+@pytest.mark.parametrize("context", MP_CONTEXTS)
 @pytest.mark.parametrize(
-    "concurrency_func",
-    [multi.multithread, multi.multiprocess],
+    "executor_class",
+    [
+        pytest.param(loky.get_reusable_executor, id="loky.get_reusable_executor"),
+        pytest.param(loky.ProcessPoolExecutor, id="loky.ProcessPoolExecutor"),
+        pytest.param(concurrent.futures.ProcessPoolExecutor, id="concurrent.futures.ProcessPoolExecutor"),
+    ],
 )
+def test_multiprocess_pass_executor_as_argument(executor_class, context):
+    if executor_class == loky.get_reusable_executor and context == "fork":
+        pytest.skip("Reusable executor doesn't work with 'fork' context")
+
+    # loky uses a different argument name for mp_context
+    context = multiprocessing.get_context(context)
+    if executor_class == concurrent.futures.ProcessPoolExecutor:
+        executor = executor_class(mp_context=context)
+    else:
+        executor = executor_class(context=context)
+
+    no_func_calls = 2
+    results = multi.multiprocess(
+        func=return_one,
+        func_kwargs=[{"number": 1}] * no_func_calls,
+        executor=executor,
+    )
+    assert sum(result.result for result in results) == no_func_calls
+
+
+def test_multithread_pass_executor_as_argument():
+    executor = concurrent.futures.ThreadPoolExecutor()
+    no_func_calls = 2
+    results = multi.multithread(
+        func=return_one,
+        func_kwargs=[{"number": 1}] * no_func_calls,
+        executor=executor,
+    )
+    assert sum(result.result for result in results) == no_func_calls
+
+
+@CONCURRENCY_FUNCS
 def test_concurrency_functions_returns_futureresult(concurrency_func) -> None:
+    no_tests = 2
     results = concurrency_func(
         func=return_one,
-        func_kwargs=[{"number": n} for n in (1, 2, 3)],
+        func_kwargs=[{"number": 42}] * no_tests,
     )
+    assert len(results) == no_tests
     for result in results:
         assert isinstance(result, multi.FutureResult)
         assert result.result == 1
         assert result.exception is None
 
 
-@pytest.mark.parametrize(
-    "concurrency_func",
-    [multi.multithread, multi.multiprocess],
-)
-def test_concurrency_functions_returns_futureresult_even_when_exceptions_are_raised(
-    concurrency_func,
-) -> None:
+@CONCURRENCY_FUNCS
+def test_concurrency_functions_returns_futureresult_even_when_exceptions_are_raised(concurrency_func) -> None:
+    no_tests = 2
     results = concurrency_func(
         func=raise_zero_division_error,
-        func_kwargs=[{"number": n} for n in (1, 2, 3)],
+        func_kwargs=[{}] * no_tests,
     )
+    assert len(results) == no_tests
     for result in results:
         assert isinstance(result, multi.FutureResult)
         assert result.result is None
         assert isinstance(result.exception, ZeroDivisionError)
 
 
-@pytest.mark.parametrize("n_workers", [1, 2, 4])
-def test_multithread_pool_size(n_workers) -> None:
-    if n_workers > multi.MAX_AVAILABLE_PROCESSES:  # = 4 and os.environ.get("CI", False):
-        pytest.skip("Github actions only permits 2 concurrent threads")
-    # Test that the number of the used threads is equal to the specified number of workers
-    results = multi.multithread(
-        func=get_threadname,
-        func_kwargs=[{"arg": i} for i in range(4 * n_workers)],
-        n_workers=n_workers,
-    )
-    thread_names = {result.result for result in results}
-    assert len(thread_names) == n_workers
-
-
-@pytest.mark.parametrize("n_workers", [1, 2, 4])
-def test_multiprocess_pool_size(n_workers) -> None:
-    if n_workers > multi.MAX_AVAILABLE_PROCESSES:  # = 4 and os.environ.get("CI", False):
-        # if n_workers == 4 and os.environ.get("CI", False):
-        pytest.skip("Github actions only permits 2 concurrent processes")
-    # Test that the number of the used processes is equal to the specified number of workers
-    results = multi.multiprocess(
-        func=get_processname,
-        func_kwargs=[{"arg": i} for i in range(4 * n_workers)],
-        n_workers=n_workers,
-    )
-    process_names = {result.result for result in results}
-    assert len(process_names) == n_workers
-
-
-@pytest.mark.parametrize(
-    "concurrency_func",
-    [multi.multithread, multi.multiprocess],
-)
+@CONCURRENCY_FUNCS
 def test_check(concurrency_func) -> None:
-    func_kwargs = [{} for i in range(2)]
-    with pytest.raises(ValueError) as exc:
+    no_tests = 2
+    with pytest.raises(exceptiongroup.ExceptionGroup) as exc:
         concurrency_func(
             func=raise_zero_division_error,
-            func_kwargs=func_kwargs,
-            n_workers=2,
+            func_kwargs=[{}] * no_tests,
             check=True,
         )
-    assert "There were failures" in str(exc)
-    assert len(str(exc.value).splitlines()) == 3  # 2 exceptions + header  # noqa: PLR2004: magic number comparison
+    assert "There were exceptions" in str(exc)
+    assert len(exc.value.exceptions) == no_tests
+    assert all(isinstance(sub_exc, ZeroDivisionError) for sub_exc in exc.value.exceptions)
+
+
+@CONCURRENCY_FUNCS
+def test_check_results(concurrency_func) -> None:
+    no_tests = 2
+    results = concurrency_func(
+        func=raise_zero_division_error,
+        func_kwargs=[{}] * no_tests,
+        check=False,
+    )
+    with pytest.raises(exceptiongroup.ExceptionGroup) as exc:
+        multi.check_results(results)
+    assert "There were exceptions" in str(exc)
+    assert len(exc.value.exceptions) == no_tests
+    assert all(isinstance(sub_exc, ZeroDivisionError) for sub_exc in exc.value.exceptions)
+
+
+@CONCURRENCY_FUNCS
+@pytest.mark.parametrize("include_kwargs", [True, False])
+def test_concurrency_functions_include_kwargs(concurrency_func, include_kwargs) -> None:
+    kwargs = {"arg": 111}
+    no_tests = 2
+    results = concurrency_func(
+        func=return_one,
+        func_kwargs=[kwargs] * no_tests,
+        include_kwargs=include_kwargs,
+    )
+    if include_kwargs:
+        assert all(result.kwargs == kwargs for result in results)
+    else:
+        assert all(result.kwargs is None for result in results)
+
+
+@CONCURRENCY_FUNCS
+def test_concurrency_functions_custom_progress_bar(concurrency_func) -> None:
+    no_tests = 2
+    kwargs = [{"arg": 111}] * no_tests
+    progress_bar = tqdm.auto.tqdm(kwargs, disable=True)
+    results = concurrency_func(
+        func=return_one,
+        func_kwargs=kwargs,
+        progress_bar=progress_bar,
+    )
+    assert sum(result.result for result in results) == no_tests
+    assert progress_bar.total == no_tests
+
+
+def test_resolve_multiprocess_executor_default_with_loky():
+    executor = multi._resolve_multiprocess_executor()
+    assert isinstance(executor, loky.ProcessPoolExecutor)
+
+
+def test_resolve_multiprocess_executor_default_without_loky():
+    with patch.dict(sys.modules, {"loky": None}):
+        executor = multi._resolve_multiprocess_executor()
+        assert isinstance(executor, concurrent.futures.ProcessPoolExecutor)

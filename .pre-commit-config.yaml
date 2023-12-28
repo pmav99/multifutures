@@ -2,6 +2,7 @@
 ci:
   skip: ["mypy", "docs"]
   autofix_prs: false
+  autoupdate_commit_msg: "chore: update pre-commit hooks"
 default_language_version:
   python: "python3"
 fail_fast: false
@@ -34,6 +35,13 @@ repos:
       - id: "python-check-blanket-type-ignore"
       - id: "python-use-type-annotations"
 
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli
+
   - repo: "https://github.com/shellcheck-py/shellcheck-py"
     rev: "v0.9.0.6"
     hooks:
@@ -45,6 +53,12 @@ repos:
       - id: "check-github-workflows"
       - id: "check-readthedocs"
 
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v4.0.0-alpha.8" # Use the sha / tag you want to point at
+    hooks:
+      - id: prettier
+        types_or: [yaml, json, toml, css, javascript]
+
   - repo: "https://github.com/asottile/reorder_python_imports"
     rev: "v3.12.0"
     hooks:
@@ -52,14 +66,20 @@ repos:
         args:
           - "--py38-plus"
 
-  - repo: "https://github.com/psf/black"
-    rev: "23.11.0"
+  - repo: "https://github.com/psf/black-pre-commit-mirror"
+    rev: "23.12.1"
     hooks:
       - id: "black"
 
-  - repo: "https://github.com/charliermarsh/ruff-pre-commit"
-    # Ruff version.
-    rev: "v0.1.7"
+  - repo: https://github.com/adamchainz/blacken-docs
+    rev: "1.16.0"
+    hooks:
+      - id: blacken-docs
+        additional_dependencies:
+          - black==23.11.0
+
+  - repo: "https://github.com/astral-sh/ruff-pre-commit"
+    rev: "v0.1.9"
     hooks:
       - id: "ruff"
 
@@ -87,12 +107,30 @@ repos:
             "requirements/requirements.txt",
           ]
       - id: "poetry-export"
+        name: "poetry export main-full"
+        args:
+          [
+            "--without-hashes",
+            "--only",
+            "main",
+            "--extras",
+            "full",
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements/requirements-full.txt",
+          ]
+      - id: "poetry-export"
         name: "poetry export dev"
         args:
           [
             "--without-hashes",
             "--with",
             "dev",
+            "--with",
+            "docs",
+            "--extras",
+            "full",
             "-f",
             "requirements.txt",
             "-o",

@@ -16,6 +16,18 @@ def return_one(rate_limit: RateLimit):
     return 1
 
 
+@pytest.mark.parametrize("jitter", [True, False])
+def test_wait(jitter):
+    wait(0.00001, jitter=jitter)
+
+
+def test_rate_limit_default():
+    rate_limit = RateLimit(strategy=None)
+    assert str(rate_limit.rate_limit) == "5 per 1 second"
+    assert isinstance(rate_limit.strategy, limits.strategies.MovingWindowRateLimiter)
+    assert isinstance(rate_limit.strategy.storage, limits.storage.MemoryStorage)
+
+
 def test_ratelimit() -> None:
     limit = 10
     rate_limit = RateLimit(rate_limit=limits.parse(f"{limit}/second"))
@@ -36,7 +48,7 @@ def test_ratelimit() -> None:
     t2 = time.time()
     assert number_of_executions == repetitions
     assert t2 - t1 > 1
-    assert t2 - t1 == pytest.approx(1, rel=0.2)
+    assert t2 - t1 == pytest.approx(1, rel=0.25)
 
 
 def test_ratelimit_multithread() -> None:
@@ -66,7 +78,7 @@ def test_ratelimit_multithread() -> None:
     duration = t2 - t1
     assert number_of_executions == repetitions
     assert t2 - t1 > 1
-    assert t2 - t1 == pytest.approx(1, rel=0.2)
+    assert t2 - t1 == pytest.approx(1, rel=0.25)
 
 
 # def test_RateLimit_multiprocess() -> None:

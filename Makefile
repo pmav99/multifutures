@@ -4,7 +4,7 @@ list:
 	@LC_ALL=C $(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
 
 init:
-	poetry install --with dev --with docs --with jupyter --sync
+	poetry install --with dev --with docs --sync
 	pre-commit install
 
 style:
@@ -17,14 +17,14 @@ mypy:
 	dmypy run multifutures
 
 test:
-	python -m pytest -vlx
+	python -m pytest -vlx --durations=10 --durations-min=0.1
 
 cov:
 	coverage erase
-	python -m pytest --cov=multifutures --cov-report term-missing --durations=10 --durations-min=0.1
+	COVERAGE_PROCESS_START=.coveragerc pytest --cov --cov-report term-missing --durations=10 --durations-min=0.1
 
 docs:
-	make -C docs html
+	mkdocs serve
 
 deps:
 	pre-commit run poetry-lock -a
