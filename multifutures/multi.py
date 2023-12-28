@@ -32,8 +32,8 @@ else:
 
 
 class FutureResult(pydantic.BaseModel):
-    exception: Exception | None = None
-    kwargs: dict[str, T.Any] | None = None
+    exception: T.Union[Exception, None] = None
+    kwargs: T.Union[dict[str, T.Any], None] = None
     result: T.Any = None
 
     model_config = pydantic.ConfigDict(arbitrary_types_allowed=True)
