@@ -42,20 +42,20 @@ async def async_run(
         start_new_session=start_new_session,
         **kwargs,
     )
+    print(proc.stdout, proc.stderr)
     try:
         with anyio.fail_after(timeout):
             async with proc:
-                if stdout or stderr:
-                    async with anyio.create_task_group() as tg:
-                        if stdout:
-                            transport_stream = T.cast(AnyByteReceiveStream, proc.stdout)
-                            proc_stdout = TextReceiveStream(transport_stream=transport_stream)
-                            tg.start_soon(handle_stream, proc_stdout, sys.stdout, stdout_buffer, name="stdout")
+                async with anyio.create_task_group() as tg:
+                    if proc.stdout:
+                        transport_stream = T.cast(AnyByteReceiveStream, proc.stdout)
+                        proc_stdout = TextReceiveStream(transport_stream=transport_stream)
+                        tg.start_soon(handle_stream, proc_stdout, sys.stdout, stdout_buffer, name="stdout")
 
-                        if stderr != subprocess.STDOUT:
-                            transport_stream = T.cast(AnyByteReceiveStream, proc.stderr)
-                            proc_stderr = TextReceiveStream(transport_stream=transport_stream)
-                            tg.start_soon(handle_stream, proc_stderr, sys.stderr, stderr_buffer, name="stderr")
+                    if proc.stderr:
+                        transport_stream = T.cast(AnyByteReceiveStream, proc.stderr)
+                        proc_stderr = TextReceiveStream(transport_stream=transport_stream)
+                        tg.start_soon(handle_stream, proc_stderr, sys.stderr, stderr_buffer, name="stderr")
 
                 if proc.returncode is None:
                     await proc.wait()

@@ -32,8 +32,8 @@ else:
 
 
 class FutureResult(pydantic.BaseModel):
-    exception: T.Union[Exception, None] = None
-    kwargs: T.Union[dict[str, T.Any], None] = None
+    exception: T.Union[Exception, None] = None  # noqa: UP007 - Use X | Y for type annotations
+    kwargs: T.Union[dict[str, T.Any], None] = None  # noqa: UP007 - Use X | Y for type annotations
     result: T.Any = None
 
     model_config = pydantic.ConfigDict(arbitrary_types_allowed=True)

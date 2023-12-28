@@ -31,6 +31,22 @@ requires = [
 ]
 build-backend = "poetry_dynamic_versioning.backend"
 
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = ["-ra", "--verbose", "--showlocals", "--tb=short", "--strict-markers", "--strict-config"]
+xfail_strict = true
+log_cli = true
+log_cli_level = "info"
+testpaths = [
+  "tests",
+]
+filterwarnings = [
+    "error",
+    'ignore:distutils Version classes are deprecated. Use packaging.version instead:DeprecationWarning',
+    'ignore:Deprecated call to `pkg_resources.declare_namespace:DeprecationWarning',
+]
+
+
 [tool.mypy]
 python_version = "3.9"
 plugins = ["pydantic.mypy"]
