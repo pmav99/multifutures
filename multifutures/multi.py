@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import logging
 import os
-import typing as T
 import sys
+import typing as T
 from collections.abc import Callable
 from concurrent.futures import as_completed
 from concurrent.futures import ProcessPoolExecutor

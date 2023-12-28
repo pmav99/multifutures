@@ -1,13 +1,13 @@
-# from __future__ import annotations
+from __future__ import annotations
+
 import time
 
 import limits
-
 import pytest
 
+from multifutures.multi import multithread
 from multifutures.rate_limit import RateLimit
 from multifutures.rate_limit import wait
-from multifutures.multi import multithread
 
 
 def return_one(rate_limit: RateLimit):
@@ -48,7 +48,7 @@ def test_ratelimit_multithread() -> None:
     # When doing fewer `repetitions` than `limit` runtime should be practically 0
     repetitions = limit - 1
     t1 = time.time()
-    results = multithread(return_one, [{"rate_limit": rate_limit} for i in range(repetitions)])
+    results = multithread(return_one, [{"rate_limit": rate_limit} for _ in range(repetitions)])
     assert all(r.exception is None for r in results)
     number_of_executions = sum(r.result for r in results)
     t2 = time.time()
@@ -59,7 +59,7 @@ def test_ratelimit_multithread() -> None:
     # When doing more `repetitions` than `limit` runtime should be 1 second + something really small
     repetitions = limit + 1
     t1 = time.time()
-    results = multithread(return_one, [{"rate_limit": rate_limit} for i in range(repetitions)])
+    results = multithread(return_one, [{"rate_limit": rate_limit} for _ in range(repetitions)])
     assert all(r.exception is None for r in results)
     number_of_executions = sum(r.result for r in results)
     t2 = time.time()
