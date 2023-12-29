@@ -24,7 +24,7 @@ cov:
 	python -m pytest --cov=multifutures --cov-report term-missing --durations=10 --durations-min=0.1
 
 docs:
-	make -C docs html
+	mkdocs serve
 
 deps:
 	pre-commit run poetry-lock -a

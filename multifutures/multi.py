@@ -1,11 +1,9 @@
-"""
-Helpers for multi processing/threading
-"""
 from __future__ import annotations
 
 import logging
 import os
 import sys
+import textwrap
 import typing as T
 from collections.abc import Callable
 from concurrent.futures import as_completed
@@ -32,14 +30,59 @@ else:
 
 
 class FutureResult(pydantic.BaseModel):
-    exception: T.Union[Exception, None] = None  # noqa: UP007 - Use X | Y for type annotations
-    kwargs: T.Union[dict[str, T.Any], None] = None  # noqa: UP007 - Use X | Y for type annotations
-    result: T.Any = None
+    """
+    The results of a function executed via
+    [multiprocess][multifutures.multiprocess] or [multithread][multifutures.multithread].
+
+    """
+
+    exception: T.Annotated[
+        T.Union[Exception, None],  # noqa: UP007 - Use X | Y for type annotations
+        pydantic.Field(
+            description=textwrap.dedent(
+                """
+                `exception` will be `None` unless an `Exception` has been raised
+                during the function execution in which case the attribute will
+                contain the exception object.
+                """,
+            ),
+        ),
+    ] = None
+    kwargs: T.Annotated[
+        T.Union[dict[str, T.Any], None],  # noqa: UP007 - Use X | Y for type annotations
+        pydantic.Field(
+            description=textwrap.dedent(
+                """
+                `kwargs` may contain the keyword arguments that were used in the function call.
+                If the objects passed as `kwargs` are too big, e.g. big dataframes, you can omit them
+                by passing `include_kwargs=False` in
+                [multiprocess][multifutures.multiprocess]/[multithread][multifutures.multithread]".
+                """,
+            ),
+        ),
+    ] = None
+    result: T.Annotated[
+        T.Any,
+        pydantic.Field(
+            description=textwrap.dedent(
+                """
+                `result` will contain the function's output.
+                If an `Exception` has been raised, then it will be `None`.
+                """,
+            ),
+        ),
+    ] = None
 
     model_config = pydantic.ConfigDict(arbitrary_types_allowed=True)
 
 
 def check_results(results: list[FutureResult]) -> None:
+    """
+    Raises `ValueError` if any of the [results] contains an exception.
+
+    Raises:
+        ValueError: "asdf  asdfasdf
+    """
     failures = [str(r) for r in results if r.exception is not None]
     if failures:
         str_failures = "\n".join(failures)
@@ -92,6 +135,16 @@ def multithread(
     disable_progress_bar: bool = False,
     check: bool = False,
 ) -> list[FutureResult]:
+    """
+
+    Returns:
+        A list of [FutureResult][multifutures.FutureResult] objects. Each object
+            will contain the output of `func(**func_kwarg)` or an `Exception`.
+
+    Raises:
+        subprocess.CalledProcessError: If the command returns a non-zero exit code and `check` is True.
+
+    """
     results = multi(
         executor=executor,
         func=func,
@@ -116,6 +169,15 @@ def multiprocess(
     disable_progress_bar: bool = False,
     check: bool = False,
 ) -> list[FutureResult]:
+    """
+    Returns:
+        A list of [FutureResult][multifutures.FutureResult] objects. Each object
+            will contain the output of `func(**func_kwarg)` or an `Exception`.
+
+    Raises:
+        subprocess.CalledProcessError: If the command returns a non-zero exit code and `check` is True.
+
+    """
     if n_workers > MAX_AVAILABLE_PROCESSES:
         msg = f"The maximum available processes are {MAX_AVAILABLE_PROCESSES}, not: {n_workers}"
         raise ValueError(msg)
