@@ -104,18 +104,17 @@ def multi(
             futures_to_kwargs = {xctr.submit(func, **kwargs): kwargs for kwargs in func_kwargs}
             results = []
             for future in as_completed(futures_to_kwargs):
-                result_kwargs: dict[str, T.Any] | None = futures_to_kwargs[future]
+                func_result = None
+                exception = None
+                result_kwargs: dict[str, T.Any] | None = None
+                if include_kwargs:
+                    result_kwargs = futures_to_kwargs[future]
                 try:
                     func_result = future.result()
                 except Exception as exc:
-                    if not include_kwargs:
-                        result_kwargs = None
-                    results.append(FutureResult(exception=exc, kwargs=result_kwargs))
-                else:
-                    if not include_kwargs:
-                        result_kwargs = None
-                    results.append(FutureResult(result=func_result, kwargs=result_kwargs))
+                    exception = exc
                 finally:
+                    results.append(FutureResult(result=func_result, exception=exception, kwargs=result_kwargs))
                     progress_bar.update(1)
     if check:
         check_results(results)
