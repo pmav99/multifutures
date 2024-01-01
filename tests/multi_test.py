@@ -4,6 +4,7 @@ import multiprocessing
 import threading
 import time
 
+import exceptiongroup
 import pytest
 
 from multifutures import multi
@@ -107,13 +108,15 @@ def test_multiprocess_pool_size(n_workers) -> None:
     [multi.multithread, multi.multiprocess],
 )
 def test_check(concurrency_func) -> None:
-    func_kwargs = [{} for i in range(2)]
-    with pytest.raises(ValueError) as exc:
+    no_tests = 4
+    func_kwargs = [{} for i in range(no_tests)]
+    with pytest.raises(exceptiongroup.ExceptionGroup) as exc:
         concurrency_func(
             func=raise_zero_division_error,
             func_kwargs=func_kwargs,
             n_workers=2,
             check=True,
         )
-    assert "There were failures" in str(exc)
-    assert len(str(exc.value).splitlines()) == 3  # 2 exceptions + header  # noqa: PLR2004: magic number comparison
+    assert "There were exceptions" in str(exc)
+    assert len(exc.value.exceptions) == no_tests
+    assert all(isinstance(sub_exc, ZeroDivisionError) for sub_exc in exc.value.exceptions)

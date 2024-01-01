@@ -10,10 +10,9 @@ from concurrent.futures import as_completed
 from concurrent.futures import ProcessPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
 
+import exceptiongroup
 import pydantic
 import tqdm.auto
-
-# from loky import ProcessPoolExecutor  # FTR, `loky.ProcessPoolExecutor` is more robust WRT pickling big objects
 
 
 logger = logging.getLogger(__name__)
@@ -33,7 +32,6 @@ class FutureResult(pydantic.BaseModel):
     """
     The results of a function executed via
     [multiprocess][multifutures.multiprocess] or [multithread][multifutures.multithread].
-
     """
 
     exception: T.Annotated[
@@ -83,10 +81,11 @@ def check_results(results: list[FutureResult]) -> None:
     Raises:
         ValueError: "asdf  asdfasdf
     """
-    failures = [str(r) for r in results if r.exception is not None]
-    if failures:
-        str_failures = "\n".join(failures)
-        raise ValueError(f"There were failures:\n{str_failures}")
+
+    exceptions = [r.exception for r in results if r.exception is not None]
+    if exceptions:
+        exception_group = exceptiongroup.ExceptionGroup("There were exceptions", exceptions)
+        raise exception_group
 
 
 def multi(

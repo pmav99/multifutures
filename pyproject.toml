@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9, <4.0"
 anyio = {version = "*", extras = ["trio"]}
+exceptiongroup = "*"
 limits = "*"
 pydantic = ">2"
 tqdm = "*"
