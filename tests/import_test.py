@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import importlib
+import importlib.metadata
 
 
 def test_import():

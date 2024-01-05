@@ -16,6 +16,11 @@ def return_one(rate_limit: RateLimit):
     return 1
 
 
+@pytest.mark.parametrize("jitter", [True, False])
+def test_wait(jitter):
+    wait(0.00001, jitter=jitter)
+
+
 def test_ratelimit() -> None:
     limit = 10
     rate_limit = RateLimit(rate_limit=limits.parse(f"{limit}/second"))

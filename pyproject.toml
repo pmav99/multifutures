@@ -12,9 +12,10 @@ exceptiongroup = "*"
 limits = "*"
 pydantic = ">2"
 tqdm = "*"
+loky = "*"
+psutil = "*"
 
 [tool.poetry.group.dev.dependencies]
-covdefaults = "*"
 ipdb = "*"
 mypy = "*"
 pytest = "*"
@@ -137,8 +138,12 @@ lint.unfixable = [
 
 
 [tool.coverage.run]
-plugins = ["covdefaults"]
+branch = true
 source = ["multifutures"]
+omit = [
+  "__main__.py",
+  "setup.py",
+]
 concurrency = [
   "multiprocessing",
   "thread",
@@ -147,10 +152,15 @@ parallel = true
 sigterm = true
 
 [tool.coverage.report]
-fail_under = 90.0
+show_missing = true
+skip_covered = true
+fail_under = 99.0
 exclude_lines = [
     'pragma: no cover',
+    'raise AssertionError',
     'raise NotImplementedError',
+    'return NotImplemented',
+    'if False:',
     'if TYPE_CHECKING:',
     'if typing.TYPE_CHECKING:',
     '@overload',

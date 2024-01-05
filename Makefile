@@ -21,7 +21,8 @@ test:
 
 cov:
 	coverage erase
-	python -m pytest --cov=multifutures --cov-report term-missing --durations=10 --durations-min=0.1
+	#COVERAGE_PROCESS_START=true python -m pytest --pdb --cov --cov-report term-missing --durations=10 --durations-min=0.1
+	COVERAGE_PROCESS_START=true pytest --pdb --cov --cov-report term-missing --durations=10 --durations-min=0.1
 
 docs:
 	mkdocs serve
