@@ -1,0 +1,2306 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="installation.html">
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.5">
+    
+    
+      
+        <title>API - multifutures</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multifutures.FutureResult" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="multifutures" class="md-header__button md-logo" aria-label="multifutures" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            multifutures
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pmav99/multifutures" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="multifutures" class="md-nav__button md-logo" aria-label="multifutures" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    multifutures
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pmav99/multifutures" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="api.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.FutureResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;FutureResult
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.check_results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;check_results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.multithread" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;multithread
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.multiprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;multiprocess
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;wait
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.RateLimit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;RateLimit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" RateLimit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifutures.RateLimit--usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures.RateLimit.reached" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;reached
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ExecutorProtocol
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ExecutorProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol.__enter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__enter__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol.__exit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__exit__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol.submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;submit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ProgressBarProtocol
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ProgressBarProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.__enter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__enter__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.__exit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__exit__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.close" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;close
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.FutureResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;FutureResult
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.check_results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;check_results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.multithread" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;multithread
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.multiprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;multiprocess
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;wait
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures.RateLimit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;RateLimit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" RateLimit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifutures.RateLimit--usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures.RateLimit.reached" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;reached
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ExecutorProtocol
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ExecutorProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol.__enter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__enter__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol.__exit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__exit__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ExecutorProtocol.submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;submit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;ProgressBarProtocol
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" ProgressBarProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.__enter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__enter__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.__exit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;__exit__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.close" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;close
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multifutures._common.ProgressBarProtocol.update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>API</h1>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="multifutures.FutureResult" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">multifutures.FutureResult</span>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#multifutures.FutureResult" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents first">
+
+  
+      <p>A <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass">dataclass</a> that holds the results of a function executed via
+<a class="autorefs autorefs-internal" href="#multifutures.multiprocess">multiprocess</a> or <a class="autorefs autorefs-internal" href="#multifutures.multithread">multithread</a>.</p>
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>Not meant to be instantiated directly.</p>
+</details>      <p>For example in the following snippet, <code>results</code> is going to be a list of <code>FutureResult</code> objects</p>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="k">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">it</span><span class="p">:</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">func_kwargs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">dict</span><span class="p">(</span><span class="n">it</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiprocess</span><span class="p">(</span><span class="k">func</span><span class="p">,</span><span class="w"> </span><span class="n">func_kwargs</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">results</span>
+<span class="p">[</span><span class="n">FutureResult</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iterable&#39;</span><span class="p">:</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)},</span><span class="w"> </span><span class="n">result</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="w"> </span><span class="n">FutureResult</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iterable&#39;</span><span class="p">:</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)},</span><span class="w"> </span><span class="n">result</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="w"> </span><span class="n">FutureResult</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iterable&#39;</span><span class="p">:</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)},</span><span class="w"> </span><span class="n">result</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="w"> </span><span class="n">FutureResult</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iterable&#39;</span><span class="p">:</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)},</span><span class="w"> </span><span class="n">result</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<span class="w"> </span><span class="n">FutureResult</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="n">None</span><span class="p">,</span><span class="w"> </span><span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iterable&#39;</span><span class="p">:</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)},</span><span class="w"> </span><span class="n">result</span><span class="o">=</span><span class="mi">6</span><span class="p">)]</span>
+</code></pre></div>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b> DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>exception</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>Will be <code>None</code> unless an <code>Exception</code> has been raised during the function execution
+in which case the attribute will contain the exception object.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a> | None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>kwargs</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>May contain the keyword arguments that were used in the function call.
+If the objects passed as <code>kwargs</code> are too big (RAM-wise), e.g. big dataframes,
+you can omit them by passing <code>include_kwargs=False</code> in
+<a class="autorefs autorefs-internal" href="#multifutures.multiprocess">multiprocess</a>/<a class="autorefs autorefs-internal" href="#multifutures.multithread">multithread</a>".</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>result</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>Will contain the function's output. If an <code>Exception</code> has been raised, then it will be <code>None</code>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>multifutures/_multi.py</code></summary>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">FutureResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A [dataclass][dataclasses.dataclass] that holds the results of a function executed via</span>
+<span class="sd">    [multiprocess][multifutures.multiprocess] or [multithread][multifutures.multithread].</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Not meant to be instantiated directly.</span>
+
+<span class="sd">    For example in the following snippet, `results` is going to be a list of `FutureResult` objects</span>
+
+<span class="sd">        &gt;&gt;&gt; func = lambda it: sum(it)</span>
+<span class="sd">        &gt;&gt;&gt; func_kwargs = [dict(it=range(i)) for i in range(5)]</span>
+<span class="sd">        &gt;&gt;&gt; results = multiprocess(func, func_kwargs)</span>
+<span class="sd">        &gt;&gt;&gt; results</span>
+<span class="sd">        [FutureResult(exception=None, kwargs={&#39;iterable&#39;: range(0, 0)}, result=0),</span>
+<span class="sd">         FutureResult(exception=None, kwargs={&#39;iterable&#39;: range(0, 1)}, result=0),</span>
+<span class="sd">         FutureResult(exception=None, kwargs={&#39;iterable&#39;: range(0, 2)}, result=1),</span>
+<span class="sd">         FutureResult(exception=None, kwargs={&#39;iterable&#39;: range(0, 3)}, result=3),</span>
+<span class="sd">         FutureResult(exception=None, kwargs={&#39;iterable&#39;: range(0, 4)}, result=6)]</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        exception:</span>
+<span class="sd">            Will be `None` unless an `Exception` has been raised during the function execution</span>
+<span class="sd">            in which case the attribute will contain the exception object.</span>
+<span class="sd">        kwargs:</span>
+<span class="sd">            May contain the keyword arguments that were used in the function call.</span>
+<span class="sd">            If the objects passed as `kwargs` are too big (RAM-wise), e.g. big dataframes,</span>
+<span class="sd">            you can omit them by passing `include_kwargs=False` in</span>
+<span class="sd">            [multiprocess][multifutures.multiprocess]/[multithread][multifutures.multithread]&quot;.</span>
+<span class="sd">        result:</span>
+<span class="sd">            Will contain the function&#39;s output. If an `Exception` has been raised, then it will be `None`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="multifutures.check_results" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">multifutures.check_results</span>
+
+
+<a href="#multifutures.check_results" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">check_results</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._multi">_multi</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._multi.FutureResult" href="#multifutures.FutureResult">FutureResult</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents first">
+  
+      <p>Raises an <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ExceptionGroup">ExceptionGroup</a> if any of the <code>results</code> contains an exception.</p>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RAISES</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+            <span class="doc-raises-annotation">
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ExceptionGroup">ExceptionGroup</a></code>
+            </span>
+          </td>
+          <td class="doc-raises-details">
+            <div class="doc-md-description">
+              <p>An exception group containing all the individual exceptions.
+Support for Python &lt; 3.11 is provided via the <a href="exceptiongroup">exceptiongroup</a> package.
+Check <a href="https://github.com/agronholm/exceptiongroup#catching-exceptions">here</a> for more info.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>multifutures/_multi.py</code></summary>
+            <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">check_results</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FutureResult</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raises an [ExceptionGroup][ExceptionGroup] if any of the `results` contains an exception.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ExceptionGroup: An exception group containing all the individual exceptions.</span>
+<span class="sd">            Support for Python &lt; 3.11 is provided via the [exceptiongroup](exceptiongroup) package.</span>
+<span class="sd">            Check [here](https://github.com/agronholm/exceptiongroup#catching-exceptions) for more info.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">exception</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">exceptions</span><span class="p">:</span>
+        <span class="n">exception_group</span> <span class="o">=</span> <span class="n">exceptiongroup</span><span class="o">.</span><span class="n">ExceptionGroup</span><span class="p">(</span><span class="s2">&quot;There were exceptions&quot;</span><span class="p">,</span> <span class="n">exceptions</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">exception_group</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="multifutures.multithread" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">multifutures.multithread</span>
+
+
+<a href="#multifutures.multithread" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">multithread</span><span class="p">(</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">],</span>
+    <span class="n">func_kwargs</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc.Collection" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection">Collection</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">executor</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._common">_common</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._common.ExecutorProtocol" href="#multifutures._common.ExecutorProtocol">ExecutorProtocol</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">check</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_kwargs</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._common">_common</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._common.ProgressBarProtocol" href="#multifutures._common.ProgressBarProtocol">ProgressBarProtocol</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._multi">_multi</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._multi.FutureResult" href="#multifutures.FutureResult">FutureResult</a></span><span class="p">]</span>
+</code></pre></div>
+
+  <div class="doc doc-contents first">
+  
+      <p>Call <code>func</code> over all the items of <code>func_kwargs</code> using a multithreading Pool
+and return a list of <a class="autorefs autorefs-internal" href="#multifutures.FutureResult">FutureResult</a> objects.</p>
+<p>Users should control the Pool's configuration (e.g. number of workers) by passing
+a custom <code>Executor</code> instance. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="n">executor</span> <span class="o">=</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">multithread</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="p">,</span> <span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">)</span>
+</code></pre></div>
+<p>The progress of the pool's workers can be monitored by a [tqdm][] based progress bar.
+Customizing the progress bar should be done by creating a <code>progress_bar</code>.
+For example, to disable the progress bar:</p>
+<div class="highlight"><pre><span></span><code><span class="n">progress_bar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">auto</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">func_kwargs</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">multithread</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b> DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>func</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>The function that will be scheduled for execution via multithreading.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a>.<a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a>.<a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[..., <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>func_kwargs</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>A Collection of dictionaries that will be used for the calls of <code>func</code>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a>.<a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a>.<a class="autorefs autorefs-external" title="collections.abc.Collection" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>executor</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>The multithreading <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor">Executor</a> instance that we want to use.
+Defaults to the standard library's <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor">ThreadPoolExecutor</a>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a>.<span title="multifutures._common">_common</span>.<a class="autorefs autorefs-internal" title="multifutures._common.ExecutorProtocol" href="#multifutures._common.ExecutorProtocol">ExecutorProtocol</a> | None</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>check</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>If <code>True</code> then if any of the <code>func</code> calls raised an exception, an
+<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ExceptionGroup">ExceptionGroup</a> containing all the exceptions will be raised.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>include_kwargs</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>A boolean flag indicating whether the keyword arguments of the
+functions will be present in the <a class="autorefs autorefs-internal" href="#multifutures.FutureResult">FurureResult</a>
+object. Useful for keeping memory usage down when the input are objects like
+<code>xarray.Dataset</code> etc.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>True</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>progress_bar</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>An instance of a progress bar implementing the <code>tqdm</code> API. Defaults to
+<code>tqdm.auto.tqdm</code>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a>.<span title="multifutures._common">_common</span>.<a class="autorefs autorefs-internal" title="multifutures._common.ProgressBarProtocol" href="#multifutures._common.ProgressBarProtocol">ProgressBarProtocol</a> | None</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-list">list</a>[<a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a>.<span title="multifutures._multi">_multi</span>.<a class="autorefs autorefs-internal" title="multifutures._multi.FutureResult" href="#multifutures.FutureResult">FutureResult</a>]</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <div class="doc-md-description">
+              <p>A list of <a class="autorefs autorefs-internal" href="#multifutures.FutureResult">FutureResult</a> objects. Each object
+will contain the output of <code>func(**func_kwarg)</code> or an <code>Exception</code>.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RAISES</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+            <span class="doc-raises-annotation">
+                <code>exceptiongroup.<span title="exceptiongroup.ExceptionGroup">ExceptionGroup</span></code>
+            </span>
+          </td>
+          <td class="doc-raises-details">
+            <div class="doc-md-description">
+              <p>If any of the function calls raises an exception and <code>check</code> is True.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>multifutures/_multi.py</code></summary>
+            <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">multithread</span><span class="p">(</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n">abc</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
+    <span class="n">func_kwargs</span><span class="p">:</span> <span class="n">abc</span><span class="o">.</span><span class="n">Collection</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">executor</span><span class="p">:</span> <span class="n">ExecutorProtocol</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">check</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_kwargs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="p">:</span> <span class="n">ProgressBarProtocol</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FutureResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Call `func` over all the items of `func_kwargs` using a multithreading Pool</span>
+<span class="sd">    and return a list of [FutureResult][multifutures.FutureResult] objects.</span>
+
+<span class="sd">    Users should control the Pool&#39;s configuration (e.g. number of workers) by passing</span>
+<span class="sd">    a custom `Executor` instance. For example:</span>
+
+<span class="sd">    ``` python</span>
+<span class="sd">    executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)</span>
+<span class="sd">    multithread(func, func_kwargs, executor=executor)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    The progress of the pool&#39;s workers can be monitored by a [tqdm][tqdm] based progress bar.</span>
+<span class="sd">    Customizing the progress bar should be done by creating a `progress_bar`.</span>
+<span class="sd">    For example, to disable the progress bar:</span>
+
+<span class="sd">    ``` python</span>
+<span class="sd">    progress_bar = tqdm.auto.tqdm(func_kwargs, disable=True)</span>
+<span class="sd">    results = multithread(func, func_kwargs, progress_bar=progress_bar)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        func: The function that will be scheduled for execution via multithreading.</span>
+<span class="sd">        func_kwargs: A Collection of dictionaries that will be used for the calls of `func`.</span>
+<span class="sd">        executor: The multithreading [Executor][concurrent.futures.Executor] instance that we want to use.</span>
+<span class="sd">            Defaults to the standard library&#39;s [ThreadPoolExecutor][concurrent.futures.ThreadPoolExecutor].</span>
+<span class="sd">        check: If `True` then if any of the `func` calls raised an exception, an</span>
+<span class="sd">            [ExceptionGroup][ExceptionGroup] containing all the exceptions will be raised.</span>
+<span class="sd">        include_kwargs: A boolean flag indicating whether the keyword arguments of the</span>
+<span class="sd">            functions will be present in the [FurureResult][multifutures.FutureResult]</span>
+<span class="sd">            object. Useful for keeping memory usage down when the input are objects like</span>
+<span class="sd">            `xarray.Dataset` etc.</span>
+<span class="sd">        progress_bar: An instance of a progress bar implementing the `tqdm` API. Defaults to</span>
+<span class="sd">            `tqdm.auto.tqdm`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of [FutureResult][multifutures.FutureResult] objects. Each object</span>
+<span class="sd">            will contain the output of `func(**func_kwarg)` or an `Exception`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        exceptiongroup.ExceptionGroup: If any of the function calls raises an exception and `check` is True.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">_resolve_multithreading_executor</span><span class="p">(</span><span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">_multi</span><span class="p">(</span>
+        <span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+        <span class="n">func_kwargs</span><span class="o">=</span><span class="n">func_kwargs</span><span class="p">,</span>
+        <span class="n">include_kwargs</span><span class="o">=</span><span class="n">include_kwargs</span><span class="p">,</span>
+        <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">,</span>
+        <span class="n">check</span><span class="o">=</span><span class="n">check</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="multifutures.multiprocess" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">multifutures.multiprocess</span>
+
+
+<a href="#multifutures.multiprocess" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">multiprocess</span><span class="p">(</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">],</span>
+    <span class="n">func_kwargs</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="collections.abc.Collection" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection">Collection</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">executor</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._common">_common</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._common.ExecutorProtocol" href="#multifutures._common.ExecutorProtocol">ExecutorProtocol</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">check</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_kwargs</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._common">_common</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._common.ProgressBarProtocol" href="#multifutures._common.ProgressBarProtocol">ProgressBarProtocol</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a></span><span class="o">.</span><span class="n"><span title="multifutures._multi">_multi</span></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-internal" title="multifutures._multi.FutureResult" href="#multifutures.FutureResult">FutureResult</a></span><span class="p">]</span>
+</code></pre></div>
+
+  <div class="doc doc-contents first">
+  
+      <p>Call <code>func</code> over all the items of <code>func_kwargs</code> using a multiprocessing Pool
+and return a list of <a class="autorefs autorefs-internal" href="#multifutures.FutureResult">FutureResult</a> objects.</p>
+<p>Users should control the Pool's configuration (e.g. number of workers) by passing
+a custom <code>Executor</code> instance. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="n">executor</span> <span class="o">=</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">multiprocess</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="p">,</span> <span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">)</span>
+</code></pre></div>
+<p>The progress of the pool's workers can be monitored by a [tqdm][] based progress bar.
+Customizing the progress bar should be done by creating a <code>progress_bar</code> instance.
+For example, to disable the progress bar:</p>
+<div class="highlight"><pre><span></span><code><span class="n">progress_bar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">auto</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">func_kwargs</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">multiprocess</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b> DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>func</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>The function that will be scheduled for execution via multiprocessing.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a>.<a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a>.<a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[..., <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>func_kwargs</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>A Collection of dictionaries that will be used for the calls of <code>func</code>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/collections.html#module-collections">collections</a>.<a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a>.<a class="autorefs autorefs-external" title="collections.abc.Collection" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>executor</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>A multiprocessing <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor">Executor</a> instance.
+Defaults to <a class="autorefs autorefs-external" href="https://loky.readthedocs.io/en/stable/API.html#loky.get_reusable_executor">loky.get_reusable_executor()</a>,
+which uses the <code>loky</code> multiprocessing context
+(<a href="https://loky.readthedocs.io/en/stable/API.html#processes-start-methods-in-loky">more info</a>).
+If <a class="autorefs autorefs-external" href="https://loky.readthedocs.io/en/stable/API.html#module-loky">loky</a> is not installed, it defaults to Standard Library's
+<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ProcessPoolExecutor">ProcessPoolExecutor</a> with the <code>spawn</code> multiprocessing
+start method (<a href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing-start-methods">more info</a>)</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a>.<span title="multifutures._common">_common</span>.<a class="autorefs autorefs-internal" title="multifutures._common.ExecutorProtocol" href="#multifutures._common.ExecutorProtocol">ExecutorProtocol</a> | None</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>check</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>If <code>True</code> then if any of the <code>func</code> calls raised an exception, an
+<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ExceptionGroup">ExceptionGroup</a> containing all the exceptions will be raised.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>include_kwargs</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>A boolean flag indicating whether the keyword arguments of the
+functions will be present in the <a class="autorefs autorefs-internal" href="#multifutures.FutureResult">FurureResult</a>
+object. Useful for keeping memory usage down when the input are objects like
+<code>xarray.Dataset</code> etc.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>True</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>progress_bar</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>An instance of a progress bar implementing the <code>tqdm</code> API. Defaults to
+<code>tqdm.auto.tqdm</code>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a>.<span title="multifutures._common">_common</span>.<a class="autorefs autorefs-internal" title="multifutures._common.ProgressBarProtocol" href="#multifutures._common.ProgressBarProtocol">ProgressBarProtocol</a> | None</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-list">list</a>[<a class="autorefs autorefs-internal" href="index.html#multifutures">multifutures</a>.<span title="multifutures._multi">_multi</span>.<a class="autorefs autorefs-internal" title="multifutures._multi.FutureResult" href="#multifutures.FutureResult">FutureResult</a>]</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <div class="doc-md-description">
+              <p>A list of <a class="autorefs autorefs-internal" href="#multifutures.FutureResult">FutureResult</a> objects. Each object
+will contain the output of <code>func(**func_kwargs[i])</code> or an <code>Exception</code>.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RAISES</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+            <span class="doc-raises-annotation">
+                <code>exceptiongroup.<span title="exceptiongroup.ExceptionGroup">ExceptionGroup</span></code>
+            </span>
+          </td>
+          <td class="doc-raises-details">
+            <div class="doc-md-description">
+              <p>If any of the function calls raises an exception and <code>check</code> is True.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>multifutures/_multi.py</code></summary>
+            <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">multiprocess</span><span class="p">(</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n">abc</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
+    <span class="n">func_kwargs</span><span class="p">:</span> <span class="n">abc</span><span class="o">.</span><span class="n">Collection</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">executor</span><span class="p">:</span> <span class="n">ExecutorProtocol</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">check</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_kwargs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="p">:</span> <span class="n">ProgressBarProtocol</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FutureResult</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Call `func` over all the items of `func_kwargs` using a multiprocessing Pool</span>
+<span class="sd">    and return a list of [FutureResult][multifutures.FutureResult] objects.</span>
+
+<span class="sd">    Users should control the Pool&#39;s configuration (e.g. number of workers) by passing</span>
+<span class="sd">    a custom `Executor` instance. For example:</span>
+
+<span class="sd">    ``` python</span>
+<span class="sd">    executor = concurrent.futures.ProcessPoolExecutor(max_workers=4)</span>
+<span class="sd">    multiprocess(func, func_kwargs, executor=executor)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    The progress of the pool&#39;s workers can be monitored by a [tqdm][tqdm] based progress bar.</span>
+<span class="sd">    Customizing the progress bar should be done by creating a `progress_bar` instance.</span>
+<span class="sd">    For example, to disable the progress bar:</span>
+
+<span class="sd">    ``` python</span>
+<span class="sd">    progress_bar = tqdm.auto.tqdm(func_kwargs, disable=True)</span>
+<span class="sd">    results = multiprocess(func, func_kwargs, progress_bar=progress_bar)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        func: The function that will be scheduled for execution via multiprocessing.</span>
+<span class="sd">        func_kwargs: A Collection of dictionaries that will be used for the calls of `func`.</span>
+<span class="sd">        executor: A multiprocessing [Executor][concurrent.futures.Executor] instance.</span>
+<span class="sd">            Defaults to [loky.get_reusable_executor()][loky.get_reusable_executor],</span>
+<span class="sd">            which uses the `loky` multiprocessing context</span>
+<span class="sd">            ([more info](https://loky.readthedocs.io/en/stable/API.html#processes-start-methods-in-loky)).</span>
+<span class="sd">            If [loky][loky] is not installed, it defaults to Standard Library&#39;s</span>
+<span class="sd">            [ProcessPoolExecutor][concurrent.futures.ProcessPoolExecutor] with the `spawn` multiprocessing</span>
+<span class="sd">            start method ([more info](https://docs.python.org/3/library/multiprocessing.html#multiprocessing-start-methods))</span>
+<span class="sd">        check: If `True` then if any of the `func` calls raised an exception, an</span>
+<span class="sd">            [ExceptionGroup][ExceptionGroup] containing all the exceptions will be raised.</span>
+<span class="sd">        include_kwargs: A boolean flag indicating whether the keyword arguments of the</span>
+<span class="sd">            functions will be present in the [FurureResult][multifutures.FutureResult]</span>
+<span class="sd">            object. Useful for keeping memory usage down when the input are objects like</span>
+<span class="sd">            `xarray.Dataset` etc.</span>
+<span class="sd">        progress_bar: An instance of a progress bar implementing the `tqdm` API. Defaults to</span>
+<span class="sd">            `tqdm.auto.tqdm`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of [FutureResult][multifutures.FutureResult] objects. Each object</span>
+<span class="sd">            will contain the output of `func(**func_kwargs[i])` or an `Exception`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        exceptiongroup.ExceptionGroup: If any of the function calls raises an exception and `check` is True.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">_resolve_multiprocess_executor</span><span class="p">(</span><span class="n">executor</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">_multi</span><span class="p">(</span>
+        <span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+        <span class="n">func_kwargs</span><span class="o">=</span><span class="n">func_kwargs</span><span class="p">,</span>
+        <span class="n">include_kwargs</span><span class="o">=</span><span class="n">include_kwargs</span><span class="p">,</span>
+        <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">,</span>
+        <span class="n">check</span><span class="o">=</span><span class="n">check</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="multifutures.wait" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">multifutures.wait</span>
+
+
+<a href="#multifutures.wait" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">wait</span><span class="p">(</span><span class="n">wait_time</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">jitter</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents first">
+  
+      <p>Wait for <code>wait_time</code> + some random <code>jitter</code></p>
+
+          <details class="quote">
+            <summary>Source code in <code>multifutures/_rate_limit.py</code></summary>
+            <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">wait_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">jitter</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wait for `wait_time` + some random `jitter`&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">jitter</span><span class="p">:</span>
+        <span class="c1"># Set jitter to be &lt;= 1% of wait_time</span>
+        <span class="n">jitter_time</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">wait_time</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># noqa: S311 - suspicious-non-cryptographic-random-usage</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">jitter_time</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait_time</span> <span class="o">+</span> <span class="n">jitter_time</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="multifutures.RateLimit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">multifutures.RateLimit</span>
+
+
+<a href="#multifutures.RateLimit" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents first">
+
+  
+      <p>A wrapper around the <a href="https://limits.readthedocs.io/en/stable/index.html">limits</a> library.
+It defaults to using the <a class="autorefs autorefs-external" href="https://limits.readthedocs.org/en/stable/api.html#limits.strategies.MovingWindowRateLimiter">Moving Window Strategy</a>
+on the <a class="autorefs autorefs-external" href="https://limits.readthedocs.org/en/stable/api.html#limits.storage.MemoryStorage">Memory Storage</a>.</p>
+
+<details class="warning" open>
+  <summary>Warning</summary>
+  <p>The default strategy only works with multi-threading, not multi-processing.
+If you want to use it with multiprocessing you need to use a different storage backend (e.g. redis).</p>
+</details>      <h4 id="multifutures.RateLimit--usage">Usage<a class="headerlink" href="#multifutures.RateLimit--usage" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>rate_limit = RateLimit()
+
+while rate_limit.reached():
+    wait()
+</code></pre></div>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b> DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>rate_limit</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>The rate limit. An instance of <a class="autorefs autorefs-external" href="https://limits.readthedocs.org/en/stable/api.html#limits.parse">limits.parse</a>.
+Defaults to 5 requests per seconds.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>limits.<a class="autorefs autorefs-external" title="limits.RateLimitItem" href="https://limits.readthedocs.org/en/stable/api.html#limits.RateLimitItem">RateLimitItem</a> | None</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>strategy</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>The strategy to use. Defaults to a Moving Window using the Memory Storage.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>limits.<span title="limits.strategies">strategies</span>.<a class="autorefs autorefs-external" title="limits.strategies.RateLimiter" href="https://limits.readthedocs.org/en/stable/api.html#limits.strategies.RateLimiter">RateLimiter</a> | None</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>multifutures/_rate_limit.py</code></summary>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">RateLimit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A wrapper around the [limits](https://limits.readthedocs.io/en/stable/index.html) library.</span>
+<span class="sd">    It defaults to using the [Moving Window Strategy][limits.strategies.MovingWindowRateLimiter]</span>
+<span class="sd">    on the [Memory Storage][limits.storage.MemoryStorage].</span>
+
+<span class="sd">    Warning:</span>
+<span class="sd">        The default strategy only works with multi-threading, not multi-processing.</span>
+<span class="sd">        If you want to use it with multiprocessing you need to use a different storage backend (e.g. redis).</span>
+
+<span class="sd">    ## Usage</span>
+
+<span class="sd">        rate_limit = RateLimit()</span>
+
+<span class="sd">        while rate_limit.reached():</span>
+<span class="sd">            wait()</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        rate_limit: The rate limit. An instance of [limits.parse][limits.parse].</span>
+<span class="sd">            Defaults to 5 requests per seconds.</span>
+<span class="sd">        strategy: The strategy to use. Defaults to a Moving Window using the Memory Storage.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">rate_limit</span><span class="p">:</span> <span class="n">limits</span><span class="o">.</span><span class="n">RateLimitItem</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">strategy</span><span class="p">:</span> <span class="n">limits</span><span class="o">.</span><span class="n">strategies</span><span class="o">.</span><span class="n">RateLimiter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">limits</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate_limit</span> <span class="o">=</span> <span class="n">rate_limit</span> <span class="ow">or</span> <span class="n">limits</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;5/second&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">storage</span> <span class="o">=</span> <span class="n">limits</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">MemoryStorage</span><span class="p">()</span>
+            <span class="n">strategy</span> <span class="o">=</span> <span class="n">limits</span><span class="o">.</span><span class="n">strategies</span><span class="o">.</span><span class="n">MovingWindowRateLimiter</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">strategy</span>
+
+    <span class="k">def</span> <span class="nf">reached</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns `True` if the rate limit has been reached, `False` otherwise.</span>
+
+<span class="sd">        `RateLimit` instances can be reused in different contexts.</span>
+<span class="sd">        To do so a unique identifier per-context must be provided.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            identifier: The identifier allows you to reuse the `RateLimit` instance in different contexts.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">hit</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rate_limit</span><span class="p">,</span>
+            <span class="n">identifier</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures.RateLimit.reached" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">reached</span>
+
+
+<a href="#multifutures.RateLimit.reached" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">reached</span><span class="p">(</span><span class="n">identifier</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns <code>True</code> if the rate limit has been reached, <code>False</code> otherwise.</p>
+<p><code>RateLimit</code> instances can be reused in different contexts.
+To do so a unique identifier per-context must be provided.</p>
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b> DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>identifier</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>The identifier allows you to reuse the <code>RateLimit</code> instance in different contexts.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>&#39;&#39;</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>multifutures/_rate_limit.py</code></summary>
+            <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reached</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns `True` if the rate limit has been reached, `False` otherwise.</span>
+
+<span class="sd">    `RateLimit` instances can be reused in different contexts.</span>
+<span class="sd">    To do so a unique identifier per-context must be provided.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        identifier: The identifier allows you to reuse the `RateLimit` instance in different contexts.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">hit</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate_limit</span><span class="p">,</span>
+        <span class="n">identifier</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="multifutures._common.ExecutorProtocol" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">multifutures._common.ExecutorProtocol</span>
+
+
+<a href="#multifutures._common.ExecutorProtocol" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Protocol" href="https://docs.python.org/3/library/typing.html#typing.Protocol">Protocol</a></code></p>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ExecutorProtocol.__enter__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">__enter__</span>
+
+
+<a href="#multifutures._common.ExecutorProtocol.__enter__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="fm">__enter__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">typing_extensions</span><span class="o">.</span><span class="n"><span title="typing_extensions.Self">Self</span></span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ExecutorProtocol.__exit__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">__exit__</span>
+
+
+<a href="#multifutures._common.ExecutorProtocol.__exit__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="fm">__exit__</span><span class="p">(</span>
+    <span class="n">exc_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-type">type</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#BaseException">BaseException</a></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exc_val</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#BaseException">BaseException</a></span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exc_tb</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-types">types</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="types.TracebackType" href="https://docs.python.org/3/library/types.html#types.TracebackType">TracebackType</a></span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ExecutorProtocol.submit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">submit</span>
+
+
+<a href="#multifutures._common.ExecutorProtocol.submit" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">submit</span><span class="p">(</span>
+    <span class="n">fn</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Callable" href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">concurrent</span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="concurrent.futures" href="https://docs.python.org/3/library/concurrent.futures.html#module-concurrent.futures">futures</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="concurrent.futures.Future" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Future">Future</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">]</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="multifutures._common.ProgressBarProtocol" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">multifutures._common.ProgressBarProtocol</span>
+
+
+<a href="#multifutures._common.ProgressBarProtocol" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/typing.html#module-typing">typing</a>.<a class="autorefs autorefs-external" title="typing.Protocol" href="https://docs.python.org/3/library/typing.html#typing.Protocol">Protocol</a></code></p>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ProgressBarProtocol.__enter__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">__enter__</span>
+
+
+<a href="#multifutures._common.ProgressBarProtocol.__enter__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="fm">__enter__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">typing_extensions</span><span class="o">.</span><span class="n"><span title="typing_extensions.Self">Self</span></span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ProgressBarProtocol.__exit__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">__exit__</span>
+
+
+<a href="#multifutures._common.ProgressBarProtocol.__exit__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="fm">__exit__</span><span class="p">(</span>
+    <span class="n">exc_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/glossary.html#term-type">type</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#BaseException">BaseException</a></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exc_value</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#BaseException">BaseException</a></span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">traceback</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/2to3.html#to3fixer-types">types</a></span><span class="o">.</span><span class="n"><a class="autorefs autorefs-external" title="types.TracebackType" href="https://docs.python.org/3/library/types.html#types.TracebackType">TracebackType</a></span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ProgressBarProtocol.close" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">close</span>
+
+
+<a href="#multifutures._common.ProgressBarProtocol.close" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">close</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="multifutures._common.ProgressBarProtocol.update" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>          <span class="doc doc-object-name doc-function-name">update</span>
+
+
+<a href="#multifutures._common.ProgressBarProtocol.update" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">update</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.c18c5fb9.min.js"></script>
+      
+    
+  </body>
+</html>
