@@ -2,6 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/multifutures.svg)](https://pypi.org/project/multifutures)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/multifutures.svg)](https://pypi.org/project/multifutures)
+[![ci](https://github.com/pmav99/multifutures/workflows/test/badge.svg)](https://github.com/pmav99/multifutures/actions?query=workflow%3Atest)
 
 ---
 
@@ -18,4 +19,4 @@ pip install multifutures
 
 ## License
 
-`my-scripts` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`multifutures` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
