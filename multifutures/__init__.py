@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import importlib.metadata
 
-from multifutures.multi import check_results
-from multifutures.multi import FutureResult
-from multifutures.multi import multiprocess
-from multifutures.multi import multithread
-from multifutures.rate_limit import RateLimit
-from multifutures.rate_limit import wait
+from ._multi import check_results
+from ._multi import FutureResult
+from ._multi import multiprocess
+from ._multi import multithread
+from ._rate_limit import RateLimit
+from ._rate_limit import wait
 
 __version__ = importlib.metadata.version("multifutures")
 

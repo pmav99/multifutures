@@ -10,7 +10,7 @@ import loky
 import pytest
 import tqdm.auto
 
-from multifutures import multi
+from multifutures import _multi as multi
 
 CONCURRENCY_FUNCS = pytest.mark.parametrize("concurrency_func", [multi.multithread, multi.multiprocess])
 MP_CONTEXTS = ["fork", "spawn", "forkserver", "loky", "loky_init_main"]

@@ -5,9 +5,9 @@ import time
 import limits
 import pytest
 
-from multifutures.multi import multithread
-from multifutures.rate_limit import RateLimit
-from multifutures.rate_limit import wait
+from multifutures import multithread
+from multifutures import RateLimit
+from multifutures import wait
 
 
 def return_one(rate_limit: RateLimit):
