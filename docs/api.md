@@ -10,9 +10,9 @@
     options:
       show_if_no_docstring: False
 
-::: multifutures._common.ExecutorProtocol
+::: multifutures.ExecutorProtocol
     options:
       show_source: False
-::: multifutures._common.ProgressBarProtocol
+::: multifutures.ProgressBarProtocol
     options:
       show_source: False
