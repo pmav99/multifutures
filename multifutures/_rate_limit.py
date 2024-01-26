@@ -65,7 +65,7 @@ class RateLimit:
         To do so a unique identifier per-context must be provided.
 
         Arguments:
-            identifier: the identifier allows you to reuse the `RateLimit` instance in different contexts.
+            identifier: The identifier allows you to reuse the `RateLimit` instance in different contexts.
 
         """
         return not self.strategy.hit(

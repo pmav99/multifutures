@@ -152,11 +152,11 @@ def test_concurrency_functions_custom_progress_bar(concurrency_func) -> None:
 
 
 def test_resolve_multiprocess_executor_default_with_loky():
-    executor = multi._resolve_multiprocess_executor()
+    executor = multi._resolve_multiprocess_executor(None)
     assert isinstance(executor, loky.ProcessPoolExecutor)
 
 
 def test_resolve_multiprocess_executor_default_without_loky():
     with patch.dict(sys.modules, {"loky": None}):
-        executor = multi._resolve_multiprocess_executor()
+        executor = multi._resolve_multiprocess_executor(None)
         assert isinstance(executor, concurrent.futures.ProcessPoolExecutor)

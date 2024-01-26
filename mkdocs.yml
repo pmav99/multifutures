@@ -141,7 +141,7 @@ plugins:
             # Whether to merge the __init__ method into the class' signature and docstring. Default: False.
             merge_init_into_class: False
             # Show the object heading even if it has no docstring or children with docstrings. Default: False.
-            show_if_no_docstring: False
+            show_if_no_docstring: True
             # Whether to display the "Attributes" section in the object's docstring. Default: True.
             show_docstring_attributes: True
             # Whether to display the "Functions" or "Methods" sections in the object's docstring. Default: True.
