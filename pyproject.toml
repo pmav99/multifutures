@@ -6,7 +6,7 @@ authors = ["Panos Mavrogiorgos <pmav99@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9, <4.0"
+python = ">=3.9"
 exceptiongroup = "*"
 limits = "*"
 tqdm = "*"
