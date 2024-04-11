@@ -22,26 +22,30 @@ if T.TYPE_CHECKING:
     from typing_extensions import reveal_type
 
 
-def _resolve_multiprocess_executor(executor: ExecutorProtocol | None) -> ExecutorProtocol:
-    if executor is not None:
+def _resolve_multiprocess_executor(executor: ExecutorProtocol | None, max_workers: int | None) -> ExecutorProtocol:
+    if executor and max_workers:
+        raise ValueError("Can't specify both `executor` and `max_workers`. Choose one or the other")
+    elif executor:
         _executor = executor
     else:
         try:
             import loky
 
-            _executor = loky.get_reusable_executor()
+            _executor = loky.get_reusable_executor(max_workers=max_workers)
         except ImportError:
             ctx = multiprocessing.get_context("spawn")
-            _executor = ProcessPoolExecutor(mp_context=ctx)
+            _executor = ProcessPoolExecutor(mp_context=ctx, max_workers=max_workers)
     return _executor
 
 
-def _resolve_multithreading_executor(executor: ExecutorProtocol | None) -> ExecutorProtocol:
+def _resolve_multithreading_executor(executor: ExecutorProtocol | None, max_workers: int | None) -> ExecutorProtocol:
     _executor: ExecutorProtocol
-    if executor is not None:
+    if executor and max_workers:
+        raise ValueError("Can't specify both `executor` and `max_workers`. Choose one or the other")
+    elif executor:
         _executor = executor
     else:
-        _executor = ThreadPoolExecutor()
+        _executor = ThreadPoolExecutor(max_workers=max_workers)
     return _executor
 
 
@@ -147,6 +151,7 @@ def multithread(
     func: abc.Callable[..., T.Any],
     func_kwargs: abc.Collection[dict[str, T.Any]],
     *,
+    max_workers: int | None = None,
     executor: ExecutorProtocol | None = None,
     check: bool = False,
     include_kwargs: bool = True,
@@ -156,11 +161,16 @@ def multithread(
     Call `func` over all the items of `func_kwargs` using a multithreading Pool
     and return a list of [FutureResult][multifutures.FutureResult] objects.
 
-    Users should control the Pool's configuration (e.g. number of workers) by passing
-    a custom `Executor` instance. For example:
+    The pool by default is an instance of [ThreadPoolExecutor][concurrent.futures.ThreadPoolExecutor].
+    The pool size can be limited with `max_workers`. If more control is needed,
+    then the caller should directly pass a [ThreadPoolExecutor][concurrent.futures.ThreadPoolExecutor]
+    instance to `executor`. For example:
 
     ``` python
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
+    # Customize executor
+    executor = concurrent.futures.ThreadPoolExecutor(
+        max_workers=4, thread_name_prefix="AAA"
+    )
     multithread(func, func_kwargs, executor=executor)
     ```
 
@@ -195,7 +205,7 @@ def multithread(
         exceptiongroup.ExceptionGroup: If any of the function calls raises an exception and `check` is True.
 
     """
-    executor = _resolve_multithreading_executor(executor=executor)
+    executor = _resolve_multithreading_executor(executor=executor, max_workers=max_workers)
     results = _multi(
         executor=executor,
         func=func,
@@ -211,6 +221,7 @@ def multiprocess(
     func: abc.Callable[..., T.Any],
     func_kwargs: abc.Collection[dict[str, T.Any]],
     *,
+    max_workers: int | None = None,
     executor: ExecutorProtocol | None = None,
     check: bool = False,
     include_kwargs: bool = True,
@@ -220,11 +231,19 @@ def multiprocess(
     Call `func` over all the items of `func_kwargs` using a multiprocessing Pool
     and return a list of [FutureResult][multifutures.FutureResult] objects.
 
-    Users should control the Pool's configuration (e.g. number of workers) by passing
-    a custom `Executor` instance. For example:
+    The pool by default is an instance of [loky.ProcessPoolExecutor](https://loky.readthedocs.io/en/stable/),
+    or, if `loky` is not installed, an instance of
+    [concurrent.futures.ProcessPoolExecutor][concurrent.futures.ProcessPoolExecutor]
+    using the `spawn` multiprocessing context.
+
+    The pool size can be limited with `max_workers`. If more control is needed, e.g. to use a different
+    multiprocessing context, then the caller should directly pass a `ProcessPoolExecutor`
+    instance to `executor`. For example:
 
     ``` python
-    executor = concurrent.futures.ProcessPoolExecutor(max_workers=4)
+    # Customize executor
+    mp_context = multiprocessing.get_context("forkserver")
+    executor = concurrent.futures.ProcessPoolExecutor(max_workers=4, mp_context=mp_context)
     multiprocess(func, func_kwargs, executor=executor)
     ```
 
@@ -264,7 +283,7 @@ def multiprocess(
         exceptiongroup.ExceptionGroup: If any of the function calls raises an exception and `check` is True.
 
     """
-    executor = _resolve_multiprocess_executor(executor)
+    executor = _resolve_multiprocess_executor(executor=executor, max_workers=max_workers)
     results = _multi(
         executor=executor,
         func=func,

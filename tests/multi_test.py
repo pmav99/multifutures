@@ -65,6 +65,15 @@ def test_multithread_pass_executor_as_argument():
 
 
 @CONCURRENCY_FUNCS
+@pytest.mark.parametrize("max_workers", [None, 2])
+def test_concurrency_functions_pass_max_workers_as_argument(concurrency_func, max_workers) -> None:
+    kwargs = {"arg": 111}
+    no_func_calls = 2
+    results = concurrency_func(func=return_one, func_kwargs=[kwargs] * no_func_calls, max_workers=max_workers)
+    assert sum(result.result for result in results) == no_func_calls
+
+
+@CONCURRENCY_FUNCS
 def test_concurrency_functions_returns_futureresult(concurrency_func) -> None:
     no_tests = 2
     results = concurrency_func(
@@ -152,11 +161,35 @@ def test_concurrency_functions_custom_progress_bar(concurrency_func) -> None:
 
 
 def test_resolve_multiprocess_executor_default_with_loky():
-    executor = multi._resolve_multiprocess_executor(None)
+    executor = multi._resolve_multiprocess_executor(None, None)
     assert isinstance(executor, loky.ProcessPoolExecutor)
 
 
 def test_resolve_multiprocess_executor_default_without_loky():
     with patch.dict(sys.modules, {"loky": None}):
-        executor = multi._resolve_multiprocess_executor(None)
+        executor = multi._resolve_multiprocess_executor(None, None)
         assert isinstance(executor, concurrent.futures.ProcessPoolExecutor)
+
+
+@pytest.mark.parametrize("max_workers", [1, 2, 4])
+def test_resolve_multiprocess_executor_with_max_workers(max_workers):
+    executor = multi._resolve_multiprocess_executor(None, max_workers=max_workers)
+    assert executor._max_workers == max_workers
+
+
+@pytest.mark.parametrize("max_workers", [1, 2, 4])
+def test_resolve_multithread_executor_with_max_workers(max_workers):
+    executor = multi._resolve_multithreading_executor(None, max_workers=max_workers)
+    assert executor._max_workers == max_workers
+
+
+@CONCURRENCY_FUNCS
+def test_specifying_both_executor_and_max_workers_raises(concurrency_func):
+    with pytest.raises(ValueError) as exc:
+        concurrency_func(
+            func=return_one,
+            func_kwargs=[{}],
+            executor=concurrent.futures.ProcessPoolExecutor(),
+            max_workers=5,
+        )
+    assert "Can't specify both `executor` and `max_workers`. Choose one or the other" in exc.exconly()
