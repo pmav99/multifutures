@@ -211,8 +211,8 @@ def multithread(
             [ExceptionGroup][ExceptionGroup] containing all the exceptions will be raised.
         include_kwargs: A boolean flag indicating whether the keyword arguments of the
             functions will be present in the [FurureResult][multifutures.FutureResult]
-            object. Useful for keeping memory usage down when the input are objects like
-            `xarray.Dataset` etc.
+            object. Setting this to `False` is useful for keeping memory usage down when
+            the input are "heavy" objects like [xarray.Dataset][xarray.Dataset] etc.
         progress_bar: An instance of a progress bar implementing the `tqdm` API. Defaults to
             `tqdm.auto.tqdm`.
 
@@ -297,8 +297,8 @@ def multiprocess(
             [ExceptionGroup][ExceptionGroup] containing all the exceptions will be raised.
         include_kwargs: A boolean flag indicating whether the keyword arguments of the
             functions will be present in the [FurureResult][multifutures.FutureResult]
-            object. Useful for keeping memory usage down when the input are objects like
-            `xarray.Dataset` etc.
+            object. Setting this to `False` is useful for keeping memory usage down when
+            the input are "heavy" objects like [xarray.Dataset][xarray.Dataset] etc.
         progress_bar: An instance of a progress bar implementing the `tqdm` API. Defaults to
             `tqdm.auto.tqdm`.
 

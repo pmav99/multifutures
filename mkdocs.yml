@@ -5,6 +5,10 @@ repo_url: "https://github.com/pmav99/multifutures"
 
 theme:
   name: "material"
+  features:
+    - "navigation.instant"
+    - "search.suggest"
+    - "search.share"
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -27,7 +31,10 @@ extra:
 nav:
   - Overview: index.md
   - Installation: installation.md
-  - API: api.md
+  - API:
+      - multi: api-multi.md
+      - rate_limit: api-rate_limit.md
+      - protocols: api-protocols.md
 
 markdown_extensions:
   - "admonition"
@@ -63,6 +70,8 @@ plugins:
             - url: "https://limits.readthedocs.org/en/stable/objects.inv"
               domains: ["std", "py"]
             - url: "https://loky.readthedocs.io/en/stable/objects.inv"
+              domains: ["std", "py"]
+            - url: "https://docs.xarray.dev/en/stable/objects.inv"
               domains: ["std", "py"]
             # - url: "https://tqdm.github.io/docs/tqdm/objects.inv"
             #   domains: ["std", "py"]

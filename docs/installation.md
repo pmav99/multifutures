@@ -8,4 +8,4 @@ python -m pip install multifutures
 
 ### conda
 
-not yet
+Soon
