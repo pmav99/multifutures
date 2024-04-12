@@ -4,6 +4,7 @@ import dataclasses
 import logging
 import multiprocessing
 import typing as T
+import warnings
 from collections import abc
 from concurrent.futures import as_completed
 from concurrent.futures import ProcessPoolExecutor
@@ -20,6 +21,9 @@ logger = logging.getLogger(__name__)
 
 if T.TYPE_CHECKING:
     from typing_extensions import reveal_type
+
+
+_DEPRECATION_PROGRESS_BAR_IS_NONE = "multifutures: Using `progress_bar=None` is deprecated and will be removed in a future release. Replace it with `progress_bar=True`"  # noqa: E501: Line too long
 
 
 def _resolve_multiprocess_executor(executor: ExecutorProtocol | None, max_workers: int | None) -> ExecutorProtocol:
@@ -50,11 +54,20 @@ def _resolve_multithreading_executor(executor: ExecutorProtocol | None, max_work
 
 
 def _resolve_progress_bar(
-    progress_bar: ProgressBarProtocol | None,
+    progress_bar: ProgressBarProtocol | bool | None,
     func_kwargs: abc.Collection[dict[str, T.Any]],
 ) -> ProgressBarProtocol:
-    if progress_bar is not None:
+    if progress_bar is None:
+        warnings.warn(
+            _DEPRECATION_PROGRESS_BAR_IS_NONE,
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        progress_bar = True
+    if isinstance(progress_bar, tqdm.tqdm):
         _progress_bar = progress_bar
+    elif progress_bar is False:
+        _progress_bar = tqdm.auto.tqdm(total=len(func_kwargs), disable=True)
     else:
         _progress_bar = tqdm.auto.tqdm(total=len(func_kwargs))
     return _progress_bar
@@ -121,10 +134,9 @@ def _multi(
     func: abc.Callable[..., T.Any],
     func_kwargs: abc.Collection[dict[str, T.Any]],
     include_kwargs: bool,
-    progress_bar: ProgressBarProtocol | None,
+    progress_bar: ProgressBarProtocol,
     check: bool,
 ) -> list[FutureResult]:
-    progress_bar = _resolve_progress_bar(progress_bar, func_kwargs)
     with progress_bar:
         with executor as xctr:
             futures_to_kwargs = {xctr.submit(func, **kwargs): kwargs for kwargs in func_kwargs}
@@ -155,7 +167,7 @@ def multithread(
     executor: ExecutorProtocol | None = None,
     check: bool = False,
     include_kwargs: bool = True,
-    progress_bar: ProgressBarProtocol | None = None,
+    progress_bar: ProgressBarProtocol | bool | None = True,
 ) -> list[FutureResult]:
     """
     Call `func` over all the items of `func_kwargs` using a multithreading Pool
@@ -174,13 +186,20 @@ def multithread(
     multithread(func, func_kwargs, executor=executor)
     ```
 
-    The progress of the pool's workers can be monitored by a [tqdm][tqdm] based progress bar.
-    Customizing the progress bar should be done by creating a `progress_bar`.
-    For example, to disable the progress bar:
+    The progress of the pool's workers can be monitored by using a
+    [tqdm](https://tqdm.github.io/) based progress bar.
+    The progress bar is displayed by default.
+    Disabling the progress bar is possible by passing `progress_bar=False`.
+    Further customizing of the progress bar should be done by creating a `tqdm.tqdm`
+    instance and passing it as an argument to `progress_bar`. For example:
 
     ``` python
-    progress_bar = tqdm.auto.tqdm(func_kwargs, disable=True)
-    results = multithread(func, func_kwargs, progress_bar=progress_bar)
+    # Run without a progress bar
+    results = multithread(func, func_kwargs, progress_bar=False)
+
+    # Run with a rich based progress bar
+    rich_based_progress_bar = tqdm.rich.tqdm(func_kwargs)
+    results = multithread(func, func_kwargs, progress_bar=rich_based_progress_bar)
     ```
 
     Arguments:
@@ -205,6 +224,7 @@ def multithread(
         exceptiongroup.ExceptionGroup: If any of the function calls raises an exception and `check` is True.
 
     """
+    progress_bar = _resolve_progress_bar(progress_bar, func_kwargs)
     executor = _resolve_multithreading_executor(executor=executor, max_workers=max_workers)
     results = _multi(
         executor=executor,
@@ -225,7 +245,7 @@ def multiprocess(
     executor: ExecutorProtocol | None = None,
     check: bool = False,
     include_kwargs: bool = True,
-    progress_bar: ProgressBarProtocol | None = None,
+    progress_bar: ProgressBarProtocol | bool | None = True,
 ) -> list[FutureResult]:
     """
     Call `func` over all the items of `func_kwargs` using a multiprocessing Pool
@@ -247,13 +267,20 @@ def multiprocess(
     multiprocess(func, func_kwargs, executor=executor)
     ```
 
-    The progress of the pool's workers can be monitored by a [tqdm][tqdm] based progress bar.
-    Customizing the progress bar should be done by creating a `progress_bar` instance.
-    For example, to disable the progress bar:
+    The progress of the pool's workers can be monitored by using a
+    [tqdm](https://tqdm.github.io/) based progress bar.
+    The progress bar is displayed by default.
+    Disabling the progress bar is possible by passing `progress_bar=False`.
+    Further customizing of the progress bar should be done by creating a `tqdm.tqdm`
+    instance and passing it as an argument to `progress_bar`. For example:
 
     ``` python
-    progress_bar = tqdm.auto.tqdm(func_kwargs, disable=True)
-    results = multiprocess(func, func_kwargs, progress_bar=progress_bar)
+    # Run without a progress bar
+    results = multithread(func, func_kwargs, progress_bar=False)
+
+    # Run with a rich based progress bar
+    rich_based_progress_bar = tqdm.rich.tqdm(func_kwargs)
+    results = multithread(func, func_kwargs, progress_bar=rich_based_progress_bar)
     ```
 
     Arguments:
@@ -283,6 +310,7 @@ def multiprocess(
         exceptiongroup.ExceptionGroup: If any of the function calls raises an exception and `check` is True.
 
     """
+    progress_bar = _resolve_progress_bar(progress_bar, func_kwargs)
     executor = _resolve_multiprocess_executor(executor=executor, max_workers=max_workers)
     results = _multi(
         executor=executor,
