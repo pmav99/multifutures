@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "multifutures"
-version = "0.3.1"
+version = "0.3.2"
 description = "Multiprocessing/multithreading made easy"
 authors = ["Panos Mavrogiorgos <pmav99@gmail.com>"]
 readme = "README.md"
