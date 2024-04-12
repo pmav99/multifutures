@@ -147,6 +147,36 @@ def test_concurrency_functions_include_kwargs(concurrency_func, include_kwargs) 
 
 
 @CONCURRENCY_FUNCS
+def test_concurrency_functions_use_progress_bar(capsys, concurrency_func) -> None:
+    no_tests = 2
+    kwargs = [{"arg": 111}] * no_tests
+    results = concurrency_func(
+        func=return_one,
+        func_kwargs=kwargs,
+    )
+    captured = capsys.readouterr()
+    assert sum(result.result for result in results) == no_tests
+    assert captured.out == ""
+    assert captured.err != ""
+    assert "it/s" in captured.err
+
+
+@CONCURRENCY_FUNCS
+def test_concurrency_functions_disable_progress_bar(capsys, concurrency_func) -> None:
+    no_tests = 2
+    kwargs = [{"arg": 111}] * no_tests
+    results = concurrency_func(
+        func=return_one,
+        func_kwargs=kwargs,
+        progress_bar=False,
+    )
+    captured = capsys.readouterr()
+    assert sum(result.result for result in results) == no_tests
+    assert captured.out == ""
+    assert captured.err == ""
+
+
+@CONCURRENCY_FUNCS
 def test_concurrency_functions_custom_progress_bar(concurrency_func) -> None:
     no_tests = 2
     kwargs = [{"arg": 111}] * no_tests
@@ -193,3 +223,13 @@ def test_specifying_both_executor_and_max_workers_raises(concurrency_func):
             max_workers=5,
         )
     assert "Can't specify both `executor` and `max_workers`. Choose one or the other" in exc.exconly()
+
+
+@CONCURRENCY_FUNCS
+def test_concurrency_functions_progress_bar_is_none_deprecation_warning(concurrency_func):
+    with pytest.deprecated_call(match=multi._DEPRECATION_PROGRESS_BAR_IS_NONE):
+        concurrency_func(
+            func=return_one,
+            func_kwargs=[{}],
+            progress_bar=None,
+        )
