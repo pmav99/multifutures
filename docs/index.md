@@ -1,6 +1,6 @@
 ## `multifutures`
 
-A library that simplifies using multithreading/multiprocessing pools
+Multiprocessing/multithreading made easy!
 
 ### Example
 

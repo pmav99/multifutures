@@ -4,7 +4,7 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/multifutures.svg)](https://pypi.org/project/multifutures)
 [![ci](https://github.com/pmav99/multifutures/workflows/test/badge.svg)](https://github.com/pmav99/multifutures/actions?query=workflow%3Atest)
 
-A library that simplifies using multithreading/multiprocessing pools
+Multiprocessing/multithreading made easy!
 
 ---
 
